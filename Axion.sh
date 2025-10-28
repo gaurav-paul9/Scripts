@@ -1,8 +1,26 @@
+# Clean Old Stuff 
+
+rm -rf device/oneplus/aston
+rm -rf device/oneplus/sm8550-common
+rm -rf kernel/oneplus/sm8550
+rm -rf kernel/oneplus/sm8550-modules
+rm -rf kernel/oneplus/sm8550-devicetrees
+rm -rf hardware/oplus
+rm -rf hardware/dolby
+rm -rf vendor/oneplus/aston
+rm -rf vendor/oneplus/sm8550-common
+rm -rf out/target/product/aston/system
+rm -rf out/target/product/aston/product
+
+# Repo Sync
+
 repo init -u https://github.com/AxionAOSP/android.git -b lineage-23.0 --git-lfs
 
 rm -rf prebuilts/clang/host/linux-x86
 
 /opt/crave/resync.sh
+
+# Clone Repo
 
 git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b lineage-23.0 device/oneplus/aston --depth=1
 
@@ -16,11 +34,13 @@ git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-devicetrees
 
 git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.0 hardware/oplus --depth=1
 
-git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen hardware/oplus --depth=1
+git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen hardware/dolby --depth=1
 
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.0 vendor/oneplus/aston --depth=1
 
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8550-common.git -b lineage-23.0 vendor/oneplus/sm8550-common --depth=1
+
+# Starting To Build
 
 . build/envsetup.sh
 
