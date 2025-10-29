@@ -5,7 +5,7 @@
 
 # ========== TELEGRAM SETUP ==========
 BOT_TOKEN="8010620197:AAHZPATLJ-AsXPdLttwR65ozmjFpMgLzUV8"
-CHAT_ID="8010620197"
+CHAT_ID="1249290479"
 
 send_telegram_message() {
     local message="$1"
