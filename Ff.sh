@@ -1,4 +1,3 @@
-cat > Axion_Telegram_PixelDrain_env_v13.sh <<'EOF'
 # =========================================================
 #   🌌  AxionOS v13 Build Automation Script
 #   🧠  Created by: Gaurav Paul
@@ -128,5 +127,3 @@ send_raw "🎉 *AxionOS Dual Build Cycle Completed!*
 ⏳ Root: $(elapsed $ROOT_TIME)  
 🕓 Total: $(elapsed $TOTAL_TIME)  
 _Ready to flash and enjoy!_ ⚡"
-EOF
-chmod +x Axion_Telegram_PixelDrain_env_v13.sh
