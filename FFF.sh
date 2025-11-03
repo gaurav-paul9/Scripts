@@ -8,6 +8,15 @@
 # =========================================================
 
 #!/bin/bash
+# --- Self-cache when piped into bash ---
+if [ -t 0 ]; then
+  : # running normally (not piped), continue
+else
+  TMP="/tmp/axion_auto_$$.sh"
+  cat > "$TMP"
+  chmod +x "$TMP"
+  exec "$TMP"
+fi
 set -eEuo pipefail
 trap 'send_raw "💥 *Build Failed!* at line $LINENO. Check logs in out directory."' ERR
 
