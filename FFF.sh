@@ -1,24 +1,22 @@
+#!/bin/bash
 # =========================================================
-#   🌌  AxionOS v13 Build Automation Script
+#   🌌  AxionOS v13 Build Automation Script  (stream-safe)
 #   🧠  Created by: Gaurav Paul
 #   ⚙️  Features: Telegram Notifications + PixelDrain Uploads
 #   📦  Dual Build: Clean + KernelSU Rooted
 #   🔐  Auto Key Generation | Portable .env support
-#   🕓  Version: v13 Final Production
 # =========================================================
+set -eEuo pipefail
 
-#!/bin/bash
-# --- Self-cache when piped into bash ---
+# --- Self-cache for streamed execution ---
 if [ -t 0 ]; then
-  : # running normally (not piped), continue
+  : # running from file, continue
 else
   TMP="/tmp/axion_auto_$$.sh"
   cat > "$TMP"
   chmod +x "$TMP"
   exec "$TMP"
 fi
-set -eEuo pipefail
-trap 'send_raw "💥 *Build Failed!* at line $LINENO. Check logs in out directory."' ERR
 
 # --- Load secrets from .env (portable) ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -31,7 +29,7 @@ else
   exit 1
 fi
 
-# --- Telegram Functions ---
+# --- Telegram + Utility Functions ---
 send_raw() {
   curl -s -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
     -d chat_id="${TG_CHAT_ID}" \
@@ -58,18 +56,20 @@ elapsed() {
   printf "%02dh:%02dm:%02ds" $(( $1/3600 )) $(( ($1/60)%60 )) $(( $1%60 ))
 }
 
-# --- Start Telegram notification ---
+# --- Enable trap *after* function definitions (stream-safe) ---
+trap 'send_raw "💥 *Build Failed!* at line $LINENO. Check logs in out directory."' ERR
+
+# --- Initial Telegram Message ---
 msg=$(send_raw "⚙️ *AxionOS Build Started* for *Aston* ⚙️
 ━━━━━━━━━━━━━━━━━━━━━━
 👤 *User:* Gaurav Paul
 🧱 *Mode:* Dual Build (Clean + Root)
 _Preparing environment..._ 💨")
-
 MSG_ID=$(echo "$msg" | grep -o '"message_id":[0-9]\+' | cut -d: -f2 | head -n1 || echo "")
 USE_EDIT=1
 [ -z "$MSG_ID" ] && USE_EDIT=0
 
-# --- Progress updater ---
+# --- Progress Updater ---
 monitor_progress() {
   local pid="$1" stage="$2"
   local start=$(date +%s)
