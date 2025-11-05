@@ -99,7 +99,7 @@ fi
 echo "Cloning additional repositories..."
 git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b lineage-23.0 device/oneplus/aston --depth=1
 git clone https://github.com/gaurav-paul9/android_device_oneplus_sm8550-common.git -b lineage-23.0 device/oneplus/sm8550-common --depth=1
-git clone https://github.com/gaurav-paul9/android_kernel_oneplus_sm8550.git -b lineage-23.0 kernel/oneplus/sm8550 --depth=1
+git clone https://github.com/gaurav-paul9/android_kernel_oneplus_sm8550.git -b newroot kernel/oneplus/sm8550 --depth=1
 git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-modules.git -b lineage-23.0 kernel/oneplus/sm8550-modules --depth=1
 git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-devicetrees.git -b lineage-23.0 kernel/oneplus/sm8550-devicetrees --depth=1
 git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.0 hardware/oplus --depth=1
@@ -151,7 +151,7 @@ if [[ -f "$ZIP_FILE" ]]; then
     UPLOAD_DATE=$(date +"%Y-%m-%d %H:%M")
     
     echo "Upload successful: $DOWNLOAD_URL"
-    UPLOAD_MESSAGE="🎉 *Aston Upload Complete!*
+    UPLOAD_MESSAGE="🎉 *Aston(Root) Upload Complete!*
 
 *Build Time:* \`$DURATION_FORMATTED\`
 📎 *Filename:* \`$FILE_NAME\`
