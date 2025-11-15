@@ -107,6 +107,8 @@ git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.0 vendor/oneplus/aston --depth=1
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8550-common.git -b lineage-23.0 vendor/oneplus/sm8550-common --depth=1
 
+curl -L -o system/core/init/Android.bp https://raw.githubusercontent.com/AxionAOSP/android_system_core/lineage-23.0/init/Android.bp
+
 # =======================
 #   6. BUILD THE ROM
 # =======================
