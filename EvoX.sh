@@ -84,7 +84,7 @@ echo "Cleanup finished."
 #   2. REPO INITIALIZATION & SYNC
 # =======================
 echo "Initializing Lunaris repository..."
-repo init -u https://github.com/Evolution-X/manifest -b bka-q1 --git-lfs
+repo init -u https://github.com/Evolution-X/manifest -b bka-q1-los --git-lfs
 
 echo "Syncing sources..."
 if [ -f "/opt/crave/resync.sh" ]; then
