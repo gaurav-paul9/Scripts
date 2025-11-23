@@ -112,7 +112,8 @@ git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8550-common
 #   6. BUILD THE ROM
 # =======================
 echo "Starting the build process..."
-source b*/env*
+. build/envsetup.sh
+gk -s
 axion aston gms core
 
 echo "Running 'm installclean' for a safe build..."
@@ -152,7 +153,7 @@ if [[ -f "$ZIP_FILE" ]]; then
     UPLOAD_DATE=$(date +"%Y-%m-%d %H:%M")
     
     echo "Upload successful: $DOWNLOAD_URL"
-    UPLOAD_MESSAGE="🎉 *Aston Upload Complete!*
+    UPLOAD_MESSAGE="🎉 *Axion (Non-Root) Upload Complete!*
 
 *Build Time:* \`$DURATION_FORMATTED\`
 📎 *Filename:* \`$FILE_NAME\`
