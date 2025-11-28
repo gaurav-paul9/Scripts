@@ -105,7 +105,7 @@ git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-modules.git
 git clone https://github.com/gaurav-paul9/android_kernel_oneplus_sm8550-devicetrees.git -b lineage-23.0 kernel/oneplus/sm8550-devicetrees --depth=1
 git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.0 hardware/oplus --depth=1
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.0 vendor/oneplus/aston --depth=1
-git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8550-common.git -b lineage-23.0 vendor/oneplus/sm8550-common --depth=1
+git clone https://gitlab.com/NoPrincessHere/proprietary_vendor_oneplus_sm8550-common.git -b sixteen vendor/oneplus/sm8550-common --depth=1
 
 curl -L -o system/core/init/Android.bp https://raw.githubusercontent.com/AxionAOSP/android_system_core/lineage-23.0/init/Android.bp
 
@@ -115,9 +115,6 @@ curl -L -o system/core/init/Android.bp https://raw.githubusercontent.com/AxionAO
 echo "Starting the build process..."
 source b*/env*
 lunch lineage_aston-bp2a-userdebug
-
-echo "Running 'm installclean' for a safe build..."
-m installclean
 
 echo "Starting the main build..."
 m lunaris
