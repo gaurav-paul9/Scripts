@@ -107,6 +107,7 @@ git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.
 git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen hardware/dolby --depth=1
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.0 vendor/oneplus/aston --depth=1
 git clone https://gitlab.com/NoPrincessHere/proprietary_vendor_oneplus_sm8550-common.git -b sixteen vendor/oneplus/sm8550-common --depth=1
+git clone https://github.com/gaurav-paul9/packages_apps_GameBar.git /packages/apps/GameBar -b main
 
 curl -L -o system/core/init/Android.bp https://raw.githubusercontent.com/AxionAOSP/android_system_core/lineage-23.0/init/Android.bp
 
