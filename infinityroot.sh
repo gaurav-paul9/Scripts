@@ -151,7 +151,7 @@ if [[ -f "$ZIP_FILE" ]]; then
     UPLOAD_DATE=$(date +"%Y-%m-%d %H:%M")
     
     echo "Upload successful: $DOWNLOAD_URL"
-    UPLOAD_MESSAGE="🎉 *AstonInfinity(Root) Upload Complete!*
+    UPLOAD_MESSAGE="🎉 *Infinity (Root) Upload Complete!*
 
 *Build Time:* \`$DURATION_FORMATTED\`
 📎 *Filename:* \`$FILE_NAME\`
