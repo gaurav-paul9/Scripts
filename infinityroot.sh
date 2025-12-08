@@ -73,6 +73,8 @@ rm -rf hardware/oplus
 rm -rf hardware/dolby
 rm -rf vendor/oneplus/aston
 rm -rf vendor/oneplus/sm8550-common
+rm -rf packages/apps/GameBar
+rm -rf .repo
 
 echo "Performing selective cleanup of 'out' directory..."
 rm -rf out/target/product/aston/system
