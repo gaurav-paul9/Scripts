@@ -100,7 +100,7 @@ fi
 #   4. CLONING ADDITIONAL REPOSITORIES
 # =======================
 echo "Cloning additional repositories..."
-git clone https://github.com/gaurav-paul9/android_device_oneplus_aston-qpr1.git -b euclid device/oneplus/aston --depth=1
+git clone https://github.com/gaurav-paul9/android_device_oneplus_aston-qpr1.git -b lineage-23.1 device/oneplus/aston --depth=1
 git clone https://github.com/OnePlus12R-development/android_device_oneplus_sm8550-common.git -b sixteen-qp1 device/oneplus/sm8550-common --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550.git -b sixteen-qpr1 kernel/oneplus/sm8550 --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550-modules.git -b sixteen-qpr1 kernel/oneplus/sm8550-modules --depth=1
