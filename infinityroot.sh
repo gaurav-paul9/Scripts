@@ -75,6 +75,7 @@ rm -rf vendor/oneplus/aston
 rm -rf vendor/oneplus/sm8550-common
 rm -rf packages/apps/GameBar
 rm -rf .repo
+rm -rf vendor/revanced
 
 echo "Performing selective cleanup of 'out' directory..."
 rm -rf out/target/product/aston/system
@@ -110,6 +111,7 @@ git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen hardware/
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.0 vendor/oneplus/aston --depth=1
 git clone https://gitlab.com/NoPrincessHere/proprietary_vendor_oneplus_sm8550-common.git -b sixteen vendor/oneplus/sm8550-common --depth=1
 git clone https://github.com/gaurav-paul9/packages_apps_GameBar.git packages/apps/GameBar -b main
+git clone https://github.com/PixelLineage/vendor_revanced vendor/revanced
 
 # =======================
 #   6. BUILD THE ROM
