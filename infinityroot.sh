@@ -113,6 +113,9 @@ git clone https://gitlab.com/NoPrincessHere/proprietary_vendor_oneplus_sm8550-co
 git clone https://github.com/gaurav-paul9/packages_apps_GameBar.git packages/apps/GameBar -b main
 git clone https://github.com/zen0s-aospforge/vendor_revanced.git vendor/revanced
 
+# Revanced Stuff
+bash vendor/revanced/extract-libs.sh
+
 # =======================
 #   6. BUILD THE ROM
 # =======================
