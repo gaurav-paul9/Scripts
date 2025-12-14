@@ -76,6 +76,7 @@ rm -rf vendor/oneplus/sm8550-common
 rm -rf packages/apps/GameBar
 rm -rf .repo
 rm -rf vendor/revanced
+rm -rf vendor/euclid
 
 echo "Performing selective cleanup of 'out' directory..."
 rm -rf out/target/product/aston/system
