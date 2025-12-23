@@ -75,6 +75,8 @@ rm -rf vendor/oneplus/aston
 rm -rf vendor/oneplus/sm8550-common
 rm -rf prebuilts/clang/host/linux-x86
 rm -rf .repo
+rm -rf vendor/revanced
+rm -rf vendor/euclid
 
 echo "Performing selective cleanup of 'out' directory..."
 rm -rf out/target/product/aston/system
