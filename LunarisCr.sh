@@ -111,7 +111,7 @@ git clone https://github.com/crdroidandroid/android_kernel_oneplus_sm8550-device
 git clone https://github.com/crdroidandroid/android_hardware_oplus.git -b 16.0 hardware/oplus --depth=1
 git clone https://gitlab.com/crdroidandroid/proprietary_vendor_oneplus_dolby.git -b 16.0 vendor/oneplus/dolby --depth=1
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.0 vendor/oneplus/aston --depth=1
-git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8550-common.git -b lineage-23.0 vendor/oneplus/sm8550-common --depth=1
+git clone https://gitlab.com/crdroidandroid/proprietary_vendor_oneplus_sm8550-common.git -b 16.0 vendor/oneplus/sm8550-common --depth=1
 git clone https://gitlab.com/crdroidandroid/proprietary_vendor_oneplus_ir.git -b 16.0 vendor/oneplus/ir --depth=1
 
 curl -L -o system/core/init/Android.bp https://raw.githubusercontent.com/AxionAOSP/android_system_core/lineage-23.0/init/Android.bp
