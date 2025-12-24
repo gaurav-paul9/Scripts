@@ -77,6 +77,8 @@ rm -rf prebuilts/clang/host/linux-x86
 rm -rf .repo
 rm -rf vendor/revanced
 rm -rf vendor/euclid
+rm -rf vendor/oneplus/ir
+rm -rf vendor/oneplus/dolby
 
 echo "Performing selective cleanup of 'out' directory..."
 rm -rf out/target/product/aston/system
