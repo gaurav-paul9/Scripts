@@ -113,7 +113,8 @@ git clone https://gitlab.com/playground0230/vendor_oneplus_aston.git -b sixteen-
 git clone https://gitlab.com/playground0230/vendor_oneplus_sm8550-common.git -b sixteen-qpr1 vendor/oneplus/sm8550-common --depth=1
 
 
-#Some Patches
+# Some Patches
+echo "Applying Some Patches"
 # ================= genfs_contexts fix =================
 # Comment line 66 to avoid duplicate genfs entry
 sed -i '66s/^/#/' \
@@ -135,7 +136,6 @@ sed -i '62i #include <linux/time.h>' "$VIDEO_FILE"
 # =======================
 echo "Starting the build process..."
 . build/envsetup.sh
-gk -s
 
 echo "Starting the main build..."
 axion aston gms core
