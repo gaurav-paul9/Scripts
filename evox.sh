@@ -101,7 +101,7 @@ fi
 #   4. CLONING ADDITIONAL REPOSITORIES
 # =======================
 echo "Cloning additional repositories..."
-git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b axion device/oneplus/aston --depth=1
+git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b evox device/oneplus/aston --depth=1
 git clone https://github.com/OnePlus12R-development/android_device_oneplus_sm8550-common.git -b sixteen-qpr1 device/oneplus/sm8550-common --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550.git -b sixteen-qpr1 kernel/oneplus/sm8550 --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550-modules.git -b sixteen-qpr1 kernel/oneplus/sm8550-modules --depth=1
@@ -189,3 +189,4 @@ echo "Script finished."
 
 # Unset the trap explicitly for a clean successful exit
 trap - EXIT
+
