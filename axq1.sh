@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 rm -rf device/oneplus/aston
 rm -rf device/oneplus/sm8550-common
 rm -rf kernel/oneplus/sm8550
@@ -53,4 +56,7 @@ axion aston gms core
 echo "====== Building ======="
 
 ax -br
+
+echo "Build Success"
+trap - EXIT
 
