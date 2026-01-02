@@ -96,7 +96,7 @@ sed -i '62i #include <linux/time.h>' "$VIDEO_FILE"
 # =======================
 echo "Starting the build process..."
 . build/envsetup.sh
-
+gk -s
 echo "Starting the main build..."
 axion aston gms core
 ax -br
