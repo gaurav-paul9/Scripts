@@ -86,7 +86,7 @@ echo "Cleanup finished."
 # =======================
 #   2. REPO INITIALIZATION & SYNC
 # =======================
-echo "Initializing infinity repository..."
+echo "Initializing EvoX repository..."
 repo init -u https://github.com/Evolution-X/manifest -b bq1 --git-lfs
 
 echo "Syncing sources..."
