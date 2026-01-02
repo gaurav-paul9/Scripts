@@ -111,8 +111,8 @@ git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen-qpr1 hard
 git clone https://gitlab.com/playground0230/vendor_oneplus_aston.git -b sixteen-qpr1 vendor/oneplus/aston --depth=1
 git clone https://gitlab.com/playground0230/vendor_oneplus_sm8550-common.git -b sixteen-qpr1 vendor/oneplus/sm8550-common --depth=1
 
-
 # ================= videodev2.h fix ====================
+echo "Applying Patches"
 VIDEO_FILE="kernel/oneplus/sm8550/include/uapi/linux/videodev2.h"
 
 # Remove lines 60, 61, 62
@@ -163,7 +163,7 @@ if [[ -f "$ZIP_FILE" ]]; then
     UPLOAD_DATE=$(date +"%Y-%m-%d %H:%M")
     
     echo "Upload successful: $DOWNLOAD_URL"
-    UPLOAD_MESSAGE="🎉 *AxionOS Upload Complete!*
+    UPLOAD_MESSAGE="🎉 *EvolutionX Upload Complete!*
 
 *Build Time:* \`$DURATION_FORMATTED\`
 📎 *Filename:* \`$FILE_NAME\`
@@ -189,4 +189,3 @@ echo "Script finished."
 
 # Unset the trap explicitly for a clean successful exit
 trap - EXIT
-
