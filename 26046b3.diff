@@ -1,0 +1,299 @@
+From 26046b32665a7fb4c084bc410ffc175158a98174 Mon Sep 17 00:00:00 2001
+From: Michael Bestas <mkbestas@lineageos.org>
+Date: Thu, 11 Dec 2025 09:51:21 +0200
+Subject: [PATCH] agm: Fix format specifiers
+
+Change-Id: Ia7b15629eb0a15bac4158c28765ebced92293cf0
+---
+
+diff --git a/ipc/HwBinders/agm_ipc_client/src/agm_client_wrapper.cpp b/ipc/HwBinders/agm_ipc_client/src/agm_client_wrapper.cpp
+index 4c4b0f7..c0030e6 100644
+--- a/ipc/HwBinders/agm_ipc_client/src/agm_client_wrapper.cpp
++++ b/ipc/HwBinders/agm_ipc_client/src/agm_client_wrapper.cpp
+@@ -313,7 +313,7 @@
+ 
+ int agm_session_open(uint32_t session_id, enum agm_session_mode sess_mode ,
+                      uint64_t *handle) {
+-    ALOGD("%s called with handle = %x , *handle = %x\n", __func__, handle, *handle);
++    ALOGD("%s called with handle = %p , *handle = %llx\n", __func__, handle, (unsigned long long) *handle);
+     int ret = -EINVAL;
+     if (!agm_server_died) {
+         android::sp<IAGM> agm_client = get_agm_server();
+@@ -853,7 +853,7 @@
+ int agm_set_gapless_session_metadata(uint64_t handle, enum agm_gapless_silence_type type,
+                                      uint32_t silence)
+ {
+-    ALOGV("%s called with handle = %x \n", __func__, handle);
++    ALOGV("%s called with handle = %llx \n", __func__, (unsigned long long)handle);
+     if (!agm_server_died) {
+         android::sp<IAGM> agm_client = get_agm_server();
+         AgmGaplessSilenceType type_hidl = (AgmGaplessSilenceType) type;
+@@ -915,11 +915,11 @@
+ 
+ int agm_session_write_with_metadata(uint64_t handle, struct agm_buff *buf, size_t *consumed_size)
+ {
+-    ALOGV("%s called with handle = %x \n", __func__, handle);
++    ALOGV("%s called with handle = %llx \n", __func__, (unsigned long long)handle);
+     int32_t ret = -EINVAL;
+ 
+     if (!agm_server_died) {
+-        ALOGV("%s:%d hndl %p",__func__, __LINE__, handle);
++        ALOGV("%s:%d hndl %llx",__func__, __LINE__, (unsigned long long)handle);
+         android::sp<IAGM> agm_client = get_agm_server();
+         hidl_vec<AgmBuff> buf_hidl(1);
+         native_handle_t *allocHidlHandle = nullptr;
+diff --git a/ipc/HwBinders/agm_ipc_service/src/agm_server_wrapper.cpp b/ipc/HwBinders/agm_ipc_service/src/agm_server_wrapper.cpp
+index 114699d..dbfce5f 100644
+--- a/ipc/HwBinders/agm_ipc_service/src/agm_server_wrapper.cpp
++++ b/ipc/HwBinders/agm_ipc_service/src/agm_server_wrapper.cpp
+@@ -231,11 +231,11 @@
+                                      list);
+             if (session_handle->handle == sess_handle) {
+                 if (session_handle->shared_mem_fd_list.size() > MAX_CACHE_SIZE) {
+-                    ALOGE("%s cache limit exceeded handle %llx [input %d - dup %d] ",
++                    ALOGE("%s cache limit exceeded handle %lx [input %d - dup %d] ",
+                             __func__ , sess_handle, input_fd, dup_fd );
+                 }
+                 session_handle->shared_mem_fd_list.push_back(std::make_pair(input_fd, dup_fd));
+-                ALOGV("sess_handle %x, session_id:%d input_fd %d, dup fd %d", session_handle->handle,
++                ALOGV("sess_handle %lx, session_id:%d input_fd %d, dup fd %d", session_handle->handle,
+                        session_handle->session_id, input_fd, dup_fd);
+             }
+          }
+@@ -356,7 +356,7 @@
+         return;
+     }
+     session_handle->handle = handle;
+-    ALOGV("%s: Adding session id %d and handle %x to client handle list \n", __func__, session_id, handle);
++    ALOGV("%s: Adding session id %d and handle %lx to client handle list \n", __func__, session_id, handle);
+ }
+ 
+ namespace vendor {
+@@ -427,7 +427,7 @@
+             if (hndle->session_id == session_id) {
+                 std::vector<std::pair<int, int>>::iterator it;
+                 for (int i = 0; i < hndle->shared_mem_fd_list.size(); i++) {
+-                     ALOGV("fd_list [input - dup ] [%d %d] list size %d \n",
++                     ALOGV("fd_list [input - dup ] [%d %d] list size %zu \n",
+                            hndle->shared_mem_fd_list[i].first, hndle->shared_mem_fd_list[i].second,
+                            hndle->shared_mem_fd_list.size());
+                      if (hndle->shared_mem_fd_list[i].second == rw_done_payload->buff.alloc_info.alloc_handle) {
+@@ -435,7 +435,7 @@
+                          it = (hndle->shared_mem_fd_list.begin() + i);
+                          if (it != hndle->shared_mem_fd_list.end())
+                              hndle->shared_mem_fd_list.erase(it);
+-                         ALOGV("input fd %d  payload fd %d\n", input_fd,
++                         ALOGV("input fd %d  payload fd %lu\n", input_fd,
+                                rw_done_payload->buff.alloc_info.alloc_handle);
+                          break;
+                      }
+@@ -884,7 +884,7 @@
+     int32_t ret = 0;
+ 
+     if (payload.size() < size) {
+-        ALOGE("%s: Invalid payload.size[%d] less than size %d\n", __func__, payload.size(), size);
++        ALOGE("%s: Invalid payload.size[%zu] less than size %d\n", __func__, payload.size(), size);
+         return -EINVAL;
+     }
+ 
+diff --git a/plugins/tinyalsa/src/agm_compress_plugin.c b/plugins/tinyalsa/src/agm_compress_plugin.c
+index 9e9bf62..6058673 100644
+--- a/plugins/tinyalsa/src/agm_compress_plugin.c
++++ b/plugins/tinyalsa/src/agm_compress_plugin.c
+@@ -176,7 +176,7 @@
+          */
+         priv->bytes_avail += priv->buffer_config.size;
+         if (priv->bytes_avail > priv->total_buf_size) {
+-            AGM_LOGE("%s: Error: bytes_avail %lld, total size = %llu\n",
++            AGM_LOGE("%s: Error: bytes_avail %ld, total size = %llu\n",
+                    __func__, priv->bytes_avail, (unsigned long long) priv->total_buf_size);
+             pthread_mutex_unlock(&priv->lock);
+             return;
+@@ -309,7 +309,7 @@
+     priv->bytes_read += count;
+ 
+     pthread_mutex_unlock(&priv->lock);
+-    AGM_LOGV("Exit: read bytes: %d",count);
++    AGM_LOGV("Exit: read bytes: %zu",count);
+     return count;
+ }
+ 
+@@ -977,7 +977,7 @@
+     priv->session_config.sess_mode = sess_mode;
+     priv->session_config.dir = (flags & COMPRESS_IN) ? RX : TX;
+     priv->session_id = session_id;
+-    AGM_LOGD("%s: requested agm session mode: %zu", __func__,
++    AGM_LOGD("%s: requested agm session mode: %u", __func__,
+              priv->session_config.sess_mode);
+ 
+     if ((priv->session_config.dir == RX) && !is_playback) {
+diff --git a/plugins/tinyalsa/src/agm_pcm_plugin.c b/plugins/tinyalsa/src/agm_pcm_plugin.c
+index a568f69..e9e8ce5 100644
+--- a/plugins/tinyalsa/src/agm_pcm_plugin.c
++++ b/plugins/tinyalsa/src/agm_pcm_plugin.c
+@@ -370,7 +370,7 @@
+             priv->pos_buf->hw_ptr_base = hw_base;
+             AGM_LOGD("%s: crossed_boundary = %u, new_hw_ptr=%ld \n",
+                                                 __func__, crossed_boundary, new_hw_ptr);
+-            AGM_LOGD("%s: delta_wall_clk_frames = %lx, delta_wall_clk_us=%ld \n",
++            AGM_LOGD("%s: delta_wall_clk_frames = %x, delta_wall_clk_us=%ld \n",
+                                                 __func__, delta_wall_clk_frames, delta_wall_clk_us);
+             AGM_LOGD("%s: shared buffer length = %lx \n",
+                                                 __func__, priv->total_size_frames);
+@@ -437,7 +437,7 @@
+     priv->pos_buf->hw_ptr_base = 0;
+     priv->pos_buf->wall_clk_msw = 0;
+     priv->pos_buf->wall_clk_lsw = 0;
+-    AGM_LOGD("%s: reset hw_ptr to %d \n", __func__, priv->pos_buf->hw_ptr);
++    AGM_LOGD("%s: reset hw_ptr to %lu \n", __func__, priv->pos_buf->hw_ptr);
+     return ret;
+ }
+ 
+diff --git a/service/src/agm.c b/service/src/agm.c
+index f718369..56f4482 100644
+--- a/service/src/agm.c
++++ b/service/src/agm.c
+@@ -336,7 +336,7 @@
+     }
+ 
+     payloadACDBTunnelInfo = (struct agm_acdb_tunnel_param *)payload;
+-    AGM_LOGD("payload size is 0x%x", *size);
++    AGM_LOGD("payload size is 0x%zx", *size);
+     AGM_LOGD("tag=%x istkv=%x num_gkvs=0x%x num_kvs=0x%x blob_size=0x%x",
+         payloadACDBTunnelInfo->tag,
+         payloadACDBTunnelInfo->isTKV,
+@@ -557,7 +557,7 @@
+     }
+ 
+     payloadACDBTunnelInfo = (struct agm_acdb_tunnel_param *)payload;
+-    AGM_LOGD("payload size is 0x%x", size);
++    AGM_LOGD("payload size is 0x%zx", size);
+     AGM_LOGD("tag=%x istkv=%x num_gkvs=0x%x num_kvs=0x%x blob_size=0x%x",
+         payloadACDBTunnelInfo->tag,
+         payloadACDBTunnelInfo->isTKV,
+diff --git a/service/src/device_hw_ep.c b/service/src/device_hw_ep.c
+index bee6bce..32be6b8 100644
+--- a/service/src/device_hw_ep.c
++++ b/service/src/device_hw_ep.c
+@@ -419,7 +419,7 @@
+     case PCM_DUMMY:
+         return populate_pcm_dummy_ep_info(&dev_obj->hw_ep_info, value);
+     default:
+-        AGM_LOGE("Unsupported interface name %s\n", __func__, dev_obj->name);
++        AGM_LOGE("Unsupported interface name %s\n", dev_obj->name);
+         return -EINVAL;
+     }
+ }
+diff --git a/service/src/graph.c b/service/src/graph.c
+index fd1a80f..77af06f 100644
+--- a/service/src/graph.c
++++ b/service/src/graph.c
+@@ -205,7 +205,7 @@
+           (sess_obj->stream_config.dir == (RX | TX))) {
+ 
+         /*configure read params*/
+-        AGM_LOGD("read params: mode %d sess buf_sz %zu num_bufs %d metadata %d \n",
++        AGM_LOGD("read params: mode %d sess buf_sz %zu num_bufs %d metadata %zu \n",
+                  mode, sess_obj->in_buffer_config.size,
+                  sess_obj->in_buffer_config.count,
+                  sess_obj->in_buffer_config.max_metadata_size);
+@@ -238,7 +238,7 @@
+         /*configure write params, note that only few parameters change for read and write params
+          * e.g, attributes, start_threshold, stop_threshold are same for both.
+          */
+-        AGM_LOGD("write params: mode %d sess buf_sz %zu num_bufs %d metadata %d \n",
++        AGM_LOGD("write params: mode %d sess buf_sz %zu num_bufs %d metadata %zu \n",
+                  mode, sess_obj->out_buffer_config.size,
+                  sess_obj->out_buffer_config.count,
+                  sess_obj->out_buffer_config.max_metadata_size);
+@@ -1237,13 +1237,13 @@
+ 
+     ret = gsl_get_tags_with_module_info(&gkv, NULL, &size);
+     if (ret) {
+-        AGM_LOGE("failed to get tag info size = %d size=0x%x", ret, size);
++        AGM_LOGE("failed to get tag info size = %d size=0x%zx", ret, size);
+         return ret;
+     }
+ 
+     ret = gsl_get_tags_with_module_info(&gkv, tag_pool, &size);
+     if (ret) {
+-        AGM_LOGE("failed to get tag pool ret = %d size=0x%x", ret, size);
++        AGM_LOGE("failed to get tag pool ret = %d size=0x%zx", ret, size);
+         return ret;
+     }
+ 
+@@ -1286,8 +1286,8 @@
+             payloadACDBTunnelInfo->num_kvs * sizeof(struct agm_key_value),
+             &temp_sum);
+     __builtin_sub_overflow(payloadACDBTunnelInfo->blob_size, temp_sum, &actual_size);
+-    AGM_LOGD("actual size = 0x%x", actual_size);
+-    AGM_LOGI("num kvs = %d", kv.num_kvs);
++    AGM_LOGD("actual size = 0x%zx", actual_size);
++    AGM_LOGI("num kvs = %zu", kv.num_kvs);
+     ptr = kv.kv;
+     for (i = 0; i < kv.num_kvs; i++) {
+         AGM_LOGI("kv %d %x", i, *ptr++);
+@@ -2216,7 +2216,7 @@
+         goto end;
+     }
+ 
+-    AGM_LOGI("expected size = %d query_size= %d",
++    AGM_LOGI("expected size = %zu query_size= %zu",
+                 *payload_size, query_payload_size);
+     if (*payload_size > query_payload_size) {
+         AGM_LOGE("payload size is too small to hold result.");
+diff --git a/service/src/metadata.c b/service/src/metadata.c
+index d49ab18..9106404 100644
+--- a/service/src/metadata.c
++++ b/service/src/metadata.c
+@@ -171,12 +171,12 @@
+     }
+ 
+     if (!(meta_data->ckv.kv)) {
+-        AGM_LOGE("metadata->ckv.kv is NULL, num_kvs=%d\n",
++        AGM_LOGE("metadata->ckv.kv is NULL, num_kvs=%zu\n",
+                                     meta_data->ckv.num_kvs);
+         return;
+     }
+     if (!(ckv->kv)) {
+-        AGM_LOGE("ckv->kv is NULL, num_kvs=%d\n",
++        AGM_LOGE("ckv->kv is NULL, num_kvs=%zu\n",
+                                     ckv->num_kvs);
+         return;
+     }
+@@ -221,7 +221,7 @@
+ 
+     if ((merged->gkv.num_kvs > MAX_KVPAIR_PROPS) || (merged->ckv.num_kvs > MAX_KVPAIR_PROPS)
+                                              || (merged->sg_props.num_values > MAX_KVPAIR_PROPS)) {
+-        AGM_LOGE("Num GKVs %d Num CKVs %d Num Props %d more than expected: %d", merged->gkv.num_kvs,
++        AGM_LOGE("Num GKVs %zu Num CKVs %zu Num Props %d more than expected: %d", merged->gkv.num_kvs,
+                                 merged->ckv.num_kvs, merged->sg_props.num_values, MAX_KVPAIR_PROPS);
+         free(merged);
+         return NULL;
+@@ -301,7 +301,7 @@
+ 
+     min_req_len += sizeof(uint32_t);
+     if (size < min_req_len) {
+-        AGM_LOGE("size should be atleast %d size for GKV\n", sizeof(uint32_t));
++        AGM_LOGE("size should be atleast %lu size for GKV\n", sizeof(uint32_t));
+         ret = -EINVAL;
+         goto done;
+ 
+@@ -309,7 +309,7 @@
+ 
+     dest->gkv.num_kvs = NUM_GKV(metadata);
+     if (dest->gkv.num_kvs > MAX_KVPAIR_PROPS) {
+-        AGM_LOGE("Num GKVs %d more than expected: %d",dest->gkv.num_kvs, MAX_KVPAIR_PROPS);
++        AGM_LOGE("Num GKVs %zu more than expected: %d",dest->gkv.num_kvs, MAX_KVPAIR_PROPS);
+         ret = -EINVAL;
+         goto free_metadata;
+     }
+@@ -335,7 +335,7 @@
+     }
+     dest->ckv.num_kvs = NUM_CKV(metadata);
+     if (dest->ckv.num_kvs > MAX_KVPAIR_PROPS) {
+-        AGM_LOGE("Num CKVs %d more than expected: %d",dest->ckv.num_kvs, MAX_KVPAIR_PROPS);
++        AGM_LOGE("Num CKVs %zu more than expected: %d",dest->ckv.num_kvs, MAX_KVPAIR_PROPS);
+         ret = -EINVAL;
+         goto free_metadata;
+     }
