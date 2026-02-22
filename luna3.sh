@@ -161,6 +161,7 @@ git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.
 git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen hardware/dolby --depth=1
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.2 vendor/oneplus/aston --depth=1
 git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8550-common.git -b lineage-23.2 vendor/oneplus/sm8550-common --depth=1
+git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
 
 send_telegram_message "🎋 *Trees Cloned.*
 🛠️ *Next:* Applying kernel patches..."
