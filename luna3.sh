@@ -149,7 +149,7 @@ send_telegram_message "✅ *Sync Completed* ($((SYNC_DIFF / 60)) mins).
 # --- 5.1 Clone Device Trees ---
 echo "🌿 Cloning Device Trees..."
 rm -rf device/oneplus/aston device/oneplus/sm8550-common kernel/oneplus/sm8550 \
-       kernel/oneplus/sm8550-modules kernel/oneplus/sm8550-devicetrees \
+       kernel/oneplus/sm8550-modules kernel/oneplus/sm8550-devicetrees hardware/pixelworks/interfaces \
        hardware/oplus hardware/dolby vendor/oneplus/aston vendor/oneplus/sm8550-common
 
 git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b luna device/oneplus/aston --depth=1
