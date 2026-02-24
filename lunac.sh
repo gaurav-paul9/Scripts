@@ -152,8 +152,8 @@ rm -rf device/oneplus/astonc device/oneplus/sm8550-common kernel/oneplus/sm8550 
        kernel/oneplus/sm8550-modules kernel/oneplus/sm8550-devicetrees hardware/pixelworks/interfaces \
        hardware/oplus hardware/dolby vendor/oneplus/astonc vendor/oneplus/sm8550-common
 
-git clone https://github.com/LineageOS/android_device_oneplus_astonc.git -b lineage-23.2 device/oneplus/astonc --depth=1
-git clone https://github.com/LineageOS/android_device_oneplus_sm8550-common.git -b lineage-23.2 device/oneplus/sm8550-common --depth=1
+git clone https://github.com/gaurav-paul9/android_device_oneplus_astonc.git -b luna device/oneplus/astonc --depth=1
+git clone https://github.com/gaurav-paul9/android_device_oneplus_sm8550-common.git -b lineage-23.2 device/oneplus/sm8550-common --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550.git -b sixteen-qpr2 kernel/oneplus/sm8550 --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550-modules.git -b sixteen-qpr2 kernel/oneplus/sm8550-modules --depth=1
 git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-devicetrees.git -b lineage-23.2 kernel/oneplus/sm8550-devicetrees --depth=1
