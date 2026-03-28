@@ -223,7 +223,7 @@ DURATION=$((BUILD_END_TIME - BUILD_START_TIME))
 DURATION_FORMATTED=$(printf '%dh:%dm:%ds' $(($DURATION/3600)) $(($DURATION%3600/60)) $(($DURATION%60)))
 
 OUTPUT_DIR="out/target/product/aston"
-ZIP_FILE=$(find "$OUTPUT_DIR" -type f -name "Axion*.zip" -mmin -260 -printf "%T@ %p\n" | sort -n | tail -n1 | cut -d' ' -f2-)
+ZIP_FILE=$(find "$OUTPUT_DIR" -type f -name "axion*.zip" -mmin -260 -printf "%T@ %p\n" | sort -n | tail -n1 | cut -d' ' -f2-)
 RECOVERY_IMG=$(find "$OUTPUT_DIR" -type f -name "recovery.img" -mmin -260 | head -n 1)
 
 if [[ -f "$ZIP_FILE" ]]; then
