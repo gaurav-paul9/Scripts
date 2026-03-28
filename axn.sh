@@ -182,8 +182,8 @@ fi
 # --- 5.3 Build with Live Monitor ---
 echo "🏗️ Starting Build..."
 set +e
-. build/envsetup.sh
-gk -s
+. build/envsetup.sh || true
+gk -s || true
 set -e
 axion aston gms core
 
