@@ -181,8 +181,10 @@ fi
 
 # --- 5.3 Build with Live Monitor ---
 echo "🏗️ Starting Build..."
+set +e
 . build/envsetup.sh
 gk -s
+set -e
 axion aston gms core
 
 MSG_JSON=$(send_telegram_return_json "🏗️ *Compiling aston...*
