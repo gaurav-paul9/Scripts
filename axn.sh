@@ -154,8 +154,10 @@ rm -rf device/oneplus/aston device/oneplus/sm8550-common kernel/oneplus/sm8550 \
 
 git clone https://github.com/LineageOS/android_device_oneplus_aston.git -b lineage-23.2 device/oneplus/aston --depth=1
 git clone https://github.com/LineageOS/android_device_oneplus_sm8550-common.git -b lineage-23.2 device/oneplus/sm8550-common --depth=1
-git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550.git -b lineage-23.2 kernel/oneplus/sm8550 --depth=1
-git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-modules.git -b lineage-23.2 kernel/oneplus/sm8550-modules --depth=1
+#git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550.git -b lineage-23.2 kernel/oneplus/sm8550 --depth=1
+#git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-modules.git -b lineage-23.2 kernel/oneplus/sm8550-modules --depth=1
+git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550.git -b sixteen-qpr2 kernel/oneplus/sm8550 --depth=1
+git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550-modules.git -b sixteen-qpr2 kernel/oneplus/sm8550-modules --depth=1
 git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-devicetrees.git -b lineage-23.2 kernel/oneplus/sm8550-devicetrees --depth=1
 git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.2 hardware/oplus --depth=1
 #git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen-qpr2 hardware/dolby --depth=1
@@ -178,6 +180,36 @@ else
     echo "⚠️ Warning: $VIDEO_FILE not found!"
     send_telegram_message "⚠️ *Warning:* videodev2.h not found. Patch skipped."
 fi
+
+cat >> device/oneplus/aston/lineage_aston.mk <<'EOF'
+
+# AxionOS-Specific Flags
+AXION_MAINTAINER := Gaurav_Paul
+AXION_PROCESSOR := Snapdragon_8_Gen_2_(4_nm)
+PRODUCT_NO_CAMERA:= false
+TARGET_BOOT_ANIMATION_RES := 1080
+TARGET_DISABLE_EPPE := true
+TARGET_INCLUDES_LOS_PREBUILTS := true
+TARGET_PREBUILT_BCR := true
+TARGET_SUPPORTS_QUICK_TAP := true
+
+# Define rear camera specs
+AXION_CAMERA_REAR_INFO := 50,8,2
+AXION_CAMERA_FRONT_INFO := 16
+
+# Flashlght_strength
+TORCH_STR_SUPPORTED := true
+
+# Charging
+BYPASS_CHARGE_SUPPORTED ?= true
+
+# Blur
+TARGET_ENABLE_BLUR := true
+
+#ScrollOptimizer
+persist.sys.perf.scroll_opt = true
+persist.sys.perf.scroll_opt.heavy_app = 2
+EOF
 
 # --- 5.3 Build with Live Monitor ---
 echo "🏗️ Starting Build..."
