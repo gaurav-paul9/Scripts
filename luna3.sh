@@ -159,8 +159,8 @@ git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm855
 git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-devicetrees.git -b lineage-23.2 kernel/oneplus/sm8550-devicetrees --depth=1
 git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.2 hardware/oplus --depth=1
 git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen-qpr2 hardware/dolby --depth=1
-git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.2 vendor/oneplus/aston --depth=1
-git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_sm8550-common.git -b lineage-23.2 vendor/oneplus/sm8550-common --depth=1
+git clone https://gitlab.com/playground0230/vendor_oneplus_aston.git -b sixteen-qpr2 vendor/oneplus/aston --depth=1
+git clone https://gitlab.com/playground0230/vendor_oneplus_sm8550-common.git -b sixteen-qpr2 vendor/oneplus/sm8550-common --depth=1
 git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
 
 send_telegram_message "🎋 *Trees Cloned.*
