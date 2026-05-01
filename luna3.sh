@@ -180,11 +180,12 @@ else
 fi
 
 sed -i '$a $(call inherit-product, vendor/lunaris-priv/keys/keys.mk)' device/oneplus/aston/lineage_aston.mk
+sed -i '$a \\nallow hal_bluetooth_default vendor_ramdump_vendor_data_file:dir rw_dir_perms;\nallow hal_bluetooth_default vendor_ramdump_vendor_data_file:file { create getattr w_file_perms };' hardware/oplus/sepolicy/qti/vendor/hal_bluetooth_default.te
 
 # --- 5.3 Build with Live Monitor ---
 echo "🏗️ Starting Build..."
 . build/envsetup.sh
-lunch lineage_aston-bp4a-userdebug
+lunch lineage_aston-bp4a-user
 
 MSG_JSON=$(send_telegram_return_json "🏗️ *Compiling aston...*
 Status: \`Initializing...\`")
