@@ -179,6 +179,8 @@ else
     send_telegram_message "⚠️ *Warning:* videodev2.h not found. Patch skipped."
 fi
 
+sed -i '$a $(call inherit-product, vendor/lunaris-priv/keys/keys.mk)' device/oneplus/aston/lineage_aston.mk
+
 # --- 5.3 Build with Live Monitor ---
 echo "🏗️ Starting Build..."
 . build/envsetup.sh
