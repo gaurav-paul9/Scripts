@@ -150,7 +150,7 @@ send_telegram_message "✅ *Sync Completed* ($((SYNC_DIFF / 60)) mins).
 echo "🌿 Cloning Device Trees..."
 rm -rf device/oneplus/aston device/oneplus/sm8550-common kernel/oneplus/sm8550 \
        kernel/oneplus/sm8550-modules kernel/oneplus/sm8550-devicetrees hardware/pixelworks/interfaces \
-       hardware/oplus hardware/dolby vendor/oneplus/aston vendor/oneplus/sm8550-common
+       hardware/oplus hardware/dolby vendor/oneplus/aston vendor/oneplus/sm8550-common packages/apps/Updater
 
 git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b luna device/oneplus/aston --depth=1
 git clone https://github.com/gaurav-paul9/android_device_oneplus_sm8550-common.git -b lineage-23.2 device/oneplus/sm8550-common --depth=1
@@ -161,7 +161,9 @@ git clone https://github.com/LineageOS/android_hardware_oplus.git -b lineage-23.
 git clone https://github.com/Pong-Development/hardware_dolby.git -b 16 hardware/dolby --depth=1
 git clone https://gitlab.com/playground0230/vendor_oneplus_aston.git -b sixteen-qpr2 vendor/oneplus/aston --depth=1
 git clone https://gitlab.com/playground0230/vendor_oneplus_sm8550-common.git -b sixteen-qpr2 vendor/oneplus/sm8550-common --depth=1
-git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
+git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces.git -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
+git clone https://github.com/gaurav-paul9/packages_apps_Updater.git -b 16.2 packages/apps/Updater
+gt clone https://github.com/gaurav-paul9/android_vendor_lineage-priv_keys -b luna vendor/lunaris-priv.keys
 
 send_telegram_message "🎋 *Trees Cloned.*
 🛠️ *Next:* Applying kernel patches..."
