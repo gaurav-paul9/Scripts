@@ -157,8 +157,8 @@ git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm855
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550-modules.git -b sixteen-qpr2 kernel/oneplus/sm8550-modules --depth=1
 git clone https://github.com/LineageOS/android_kernel_oneplus_sm8550-devicetrees.git -b lineage-23.2 kernel/oneplus/sm8550-devicetrees --depth=1
 git clone https://gitlab.com/gauravpaul9/hardware_oplus.git -b lineage-23.2 hardware/oplus --depth=1
-git clone https://github.com/TheMuppets/proprietary_vendor_oneplus_aston.git -b lineage-23.2 vendor/oneplus/aston --depth=1
-git clone https://gitlab.com/gauravpaul9/proprietary_vendor_oneplus_sm8550-common_yaap.git -b yaap vendor/oneplus/sm8550-common --depth=1
+git clone https://gitlab.com/gauravpaul9/vendor_oneplus_aston.git -b main vendor/oneplus/aston --depth=1
+git clone https://gitlab.com/gauravpaul9/vendor_oneplus_sm8550-common.git -b main vendor/oneplus/sm8550-common --depth=1
 git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
 git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen-qpr2 hardware/dolby --depth=1
 
@@ -171,8 +171,34 @@ git clone https://github.com/LineageOS/android_vendor_qcom_opensource_arpal-lx -
 git clone https://github.com/LineageOS/android_hardware_qcom-caf_common.git -b lineage-23.2 hardware/qcom-caf/common
 git clone https://github.com/LineageOS/android_device_qcom_sepolicy_vndr -b lineage-23.2-caf-sm8550 device/qcom/sepolicy_vndr/sm8550
 
+rm -rf packages/resources/devicesettings/
+git clone https://github.com/LineageOS/android_packages_resources_devicesettings.git -b lineage-23.2 packages/resources/devicesettings
+
+rm -rf packages/providers/TelephonyProvider frameworks/opt/telephony vendor/codeaurora/telephony 
+git clone https://github.com/LineageOS/android_packages_providers_TelephonyProvider -b lineage-23.2 packages/providers/TelephonyProvider
+git clone https://github.com/LineageOS/android_frameworks_opt_telephony -b lineage-23.2 frameworks/opt/telephony
+git clone https://github.com/LineageOS/android_vendor_codeaurora_telephony -b lineage-23.2 vendor/codeaurora/telephony 
+
+rm -rf packages/apps/OpenDelta/
+
+git clone https://github.com/gaurav-paul9/packages_apps_OpenDelta -b sixteen packages/apps/OpenDelta
+
 # Patch
 sed -i 's/name_hash = hex(hash((self.plat_id, self.board_id, self.pmic_id)))/name_hash = hex(hash(self))/' vendor/yaap/build/tools/merge_dtbs.py
+
+sed -i '71,81d' hardware/qcom-caf/bootctrl/aidl/Android.bp
+
+echo "🛠️ Applying videodev2.h fix..."
+VIDEO_FILE="kernel/oneplus/sm8550/include/uapi/linux/videodev2.h"
+
+if [ -f "$VIDEO_FILE" ]; then
+    sed -i '60,62d' "$VIDEO_FILE"
+    sed -i '62i #include <linux/time.h>' "$VIDEO_FILE"
+    echo "✅ Kernel fix applied."
+else
+    echo "⚠️ Warning: $VIDEO_FILE not found!"
+    send_telegram_message "⚠️ *Warning:* videodev2.h not found. Patch skipped."
+fi
 
 # --- 5.2 Build ---
 . build/envsetup.sh
