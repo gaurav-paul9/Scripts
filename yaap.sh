@@ -186,7 +186,7 @@ git clone https://github.com/gaurav-paul9/packages_apps_OpenDelta -b sixteen pac
 # Patch
 sed -i 's/name_hash = hex(hash((self.plat_id, self.board_id, self.pmic_id)))/name_hash = hex(hash(self))/' vendor/yaap/build/tools/merge_dtbs.py
 
-sed -i '78,88d' hardware/qcom-caf/bootctrl/aidl/Android.bp
+sed -i '89,99d' hardware/qcom-caf/bootctrl/aidl/Android.bp
 
 echo "🛠️ Applying videodev2.h fix..."
 VIDEO_FILE="kernel/oneplus/sm8550/include/uapi/linux/videodev2.h"
