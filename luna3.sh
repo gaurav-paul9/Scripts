@@ -163,7 +163,7 @@ git clone https://gitlab.com/playground0230/vendor_oneplus_aston.git -b sixteen-
 git clone https://gitlab.com/playground0230/vendor_oneplus_sm8550-common.git -b sixteen-qpr2 vendor/oneplus/sm8550-common --depth=1
 git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces.git -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
 git clone https://github.com/gaurav-paul9/packages_apps_Updater.git -b 16.2 packages/apps/Updater
-git clone https://github.com/gaurav-paul9/android_vendor_lineage-priv_keys -b luna vendor/lunaris-priv.keys
+git clone https://github.com/gaurav-paul9/android_vendor_lineage-priv_keys -b luna vendor/lunaris-priv/keys
 
 send_telegram_message "🎋 *Trees Cloned.*
 🛠️ *Next:* Applying kernel patches..."
