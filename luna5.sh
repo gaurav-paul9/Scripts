@@ -150,7 +150,7 @@ send_telegram_message "✅ *Sync Completed* ($((SYNC_DIFF / 60)) mins).
 echo "🌿 Cloning Device Trees..."
 rm -rf device/oneplus/aston device/oneplus/sm8550-common kernel/oneplus/sm8550 packages/apps/Updater \
        kernel/oneplus/sm8550-modules kernel/oneplus/sm8550-devicetrees hardware/pixelworks/interfaces \
-       hardware/oplus hardware/dolby vendor/oneplus/aston vendor/oneplus/sm8550-common packages/apps/Updater
+       hardware/oplus hardware/dolby vendor/oneplus/aston vendor/oneplus/sm8550-common vendor/lunaris-priv/keys
 
 git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b lineage-23.2 device/oneplus/aston --depth=1
 git clone https://github.com/gaurav-paul9/android_device_oneplus_sm8550-common.git -b los device/oneplus/sm8550-common --depth=1
@@ -181,7 +181,6 @@ else
     send_telegram_message "⚠️ *Warning:* videodev2.h not found. Patch skipped."
 fi
 
-sed -i '$a $(call inherit-product, vendor/lunaris-priv/keys/keys.mk)' device/oneplus/aston/lineage_aston.mk
 sed -i '$a \\nallow hal_bluetooth_default vendor_ramdump_vendor_data_file:dir rw_dir_perms;\nallow hal_bluetooth_default vendor_ramdump_vendor_data_file:file { create getattr w_file_perms };' hardware/oplus/sepolicy/qti/vendor/hal_bluetooth_default.te
 
 # --- 5.3 Build with Live Monitor ---
