@@ -126,8 +126,7 @@ BUILD_START_TIME=$(date +%s)
 
 # Clean
 echo "🧹 Cleaning up..."
-rm -rf out/target/product/aston/system \
-       out/target/product/aston/product .repo/local_manifests
+rm -rf .repo/local_manifests
 rm -f "$BUILD_LOG" "$ERROR_LOG" ota.json
 
 # Repo Init & Sync
