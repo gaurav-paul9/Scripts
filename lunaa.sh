@@ -167,14 +167,14 @@ git clone https://github.com/Pong-Development/hardware_dolby.git -b 16 hardware/
 git clone https://gitlab.com/gauravpaul9/vendor_oneplus_aston_lunaris.git -b alpha-16.2 vendor/oneplus/aston --depth=1
 git clone https://gitlab.com/gauravpaul9/vendor_oneplus_sm8550-common_lunaris.git -b sixteen-qpr2 vendor/oneplus/sm8550-common --depth=1
 git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces.git -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
-git clone https://github.com/gaurav-paul9/packages_apps_Updater.git -b 16.2 packages/apps/Updater
+git clone https://github.com/gaurav-paul9/packages_apps_Updater.git -b 16.2 packages/apps/Updater --depth=1
 git clone https://gaurav-paul9:${GH_TOKEN}@github.com/gaurav-paul9/android_vendor_lineage-priv_keys -b luna vendor/lunaris-priv/keys
-git clone https://github.com/gaurav-paul9/frameworks_base.git -b camera-port frameworks/base
-git clone https://gitlab.com/gauravpaul9/frameworks_av.git -b camera-port frameworks/av
-git clone https://github.com/gaurav-paul9/frameworks_native.git -b 16.2 frameworks/native
-git clone https://github.com/gaurav-paul9/art.git -b 16.2 art
-git clone https://gitlab.com/gauravpaul9/device_qcom_sepolicy_vndr_sm8550.git -b camera-port device/qcom/sepolicy_vndr/sm8550
-git clone https://gitlab.com/alphadroid-project/vendor_oplus_camera.git -b alpha-16.2 vendor/oplus/camera
+git clone https://github.com/gaurav-paul9/frameworks_base.git -b camera-port frameworks/base --depth=1
+git clone https://gitlab.com/gauravpaul9/frameworks_av.git -b camera-port frameworks/av --depth=1
+git clone https://github.com/gaurav-paul9/frameworks_native.git -b 16.2 frameworks/native --depth=1
+git clone https://github.com/gaurav-paul9/art.git -b 16.2 art --depth=1
+git clone https://gitlab.com/gauravpaul9/device_qcom_sepolicy_vndr_sm8550.git -b camera-port device/qcom/sepolicy_vndr/sm8550 --depth=1
+git clone https://gitlab.com/alphadroid-project/vendor_oplus_camera.git -b alpha-16.2 vendor/oplus/camera --depth=1
 
 send_telegram_message "🎋 *Trees Cloned.*
 🛠️ *Next:* Applying kernel patches..."
