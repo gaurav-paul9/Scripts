@@ -155,9 +155,9 @@ git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b lu
 git clone https://github.com/gaurav-paul9/android_device_oneplus_sm8550-common.git -b lineage-23.2 device/oneplus/sm8550-common --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550.git -b sixteen-qpr2 kernel/oneplus/sm8550 --depth=1
 git clone https://github.com/gaurav-paul9/android_kernel_oneplus_sm8550-modules -b lunaris kernel/oneplus/sm8550-modules --depth=1
-git clone https://github.com/gaurav-paul9/android_kernel_oneplus_sm8550-devicetrees.git -b lineage-23.2 kernel/oneplus/sm8550-devicetrees --depth=1
+git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550-devicetrees -b sixteen-qpr2 kernel/oneplus/sm8550-devicetrees --depth=1
 git clone https://gitlab.com/gauravpaul9/hw_oplus.git -b lineage-23.2 hardware/oplus --depth=1
-git clone https://github.com/Pong-Development/hardware_dolby.git -b 16 hardware/dolby --depth=1
+git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen-qpr2 hardware/dolby --depth=1
 git clone https://gitlab.com/gauravpaul9/vendor_oneplus_aston_lunaris.git -b alpha-16.2 vendor/oneplus/aston --depth=1
 git clone https://gitlab.com/gauravpaul9/vendor_oneplus_sm8550-common_lunaris.git -b sixteen-qpr2 vendor/oneplus/sm8550-common --depth=1
 git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces.git -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
@@ -228,7 +228,6 @@ else
     send_telegram_message "⚠️ *Warning:* videodev2.h not found. Patch skipped."
 fi
 
-sed -i '$a \\nallow hal_bluetooth_default vendor_ramdump_vendor_data_file:dir rw_dir_perms;\nallow hal_bluetooth_default vendor_ramdump_vendor_data_file:file { create getattr w_file_perms };' hardware/oplus/sepolicy/qti/vendor/hal_bluetooth_default.te
 
 # --- 5.3 Build with Live Monitor ---
 echo "🏗️ Starting Build..."
