@@ -20,8 +20,8 @@ else
 fi
 
 # Validation
-if [ -z "$TG_BOT_TOKEN" ] || [ -z "$TG_CHAT_ID" ] || [ -z "$PIXELDRAIN_API_KEY" ] || [ -z "$GH_TOKEN" ]; then
-    echo "❌ Missing variables in .env"
+if [ -z "$TG_BOT_TOKEN" ] || [ -z "$TG_CHAT_ID" ] || [ -z "$PIXELDRAIN_API_KEY" ] || [ -z "$GH_TOKEN" ] || [ -z "$GL_TOKEN" ]; then
+    echo "❌ Missing variables in .env (need TG_BOT_TOKEN, TG_CHAT_ID, PIXELDRAIN_API_KEY, GH_TOKEN, GL_TOKEN)"
     exit 1
 fi
 
@@ -150,20 +150,23 @@ echo "🌿 Cloning Device Trees..."
 rm -rf device/oneplus/aston device/oneplus/sm8550-common kernel/oneplus/sm8550 packages/apps/Updater \
        kernel/oneplus/sm8550-modules kernel/oneplus/sm8550-devicetrees hardware/pixelworks/interfaces \
        hardware/oplus hardware/dolby vendor/oneplus/aston vendor/oneplus/sm8550-common vendor/lunaris-priv/keys
+rm -rf vendor/oplus/camera vendor/oneplus/ir vendor/oneplus/fusion
 
 git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b luna-new device/oneplus/aston --depth=1
 git clone https://github.com/gaurav-paul9/android_device_oneplus_sm8550-common.git -b lineage-23.2 device/oneplus/sm8550-common --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550.git -b sixteen-qpr2 kernel/oneplus/sm8550 --depth=1
 git clone https://github.com/gaurav-paul9/android_kernel_oneplus_sm8550-modules -b lunaris kernel/oneplus/sm8550-modules --depth=1
 git clone https://github.com/OnePlus12R-development/android_kernel_oneplus_sm8550-devicetrees -b sixteen-qpr2 kernel/oneplus/sm8550-devicetrees --depth=1
-git clone https://gitlab.com/gauravpaul9/hw_oplus.git -b lineage-23.2 hardware/oplus --depth=1
+git clone https://oauth2:${GL_TOKEN}@gitlab.com/gauravpaul9/hw_oplus.git -b lineage-23.2 hardware/oplus --depth=1
 git clone https://github.com/inferno0230/hardware_dolby.git -b sixteen-qpr2 hardware/dolby --depth=1
-git clone https://gitlab.com/gauravpaul9/vendor_oneplus_aston_lunaris.git -b alpha-16.2 vendor/oneplus/aston --depth=1
-git clone https://gitlab.com/gauravpaul9/vendor_oneplus_sm8550-common_lunaris.git -b sixteen-qpr2 vendor/oneplus/sm8550-common --depth=1
+git clone https://oauth2:${GL_TOKEN}@gitlab.com/gauravpaul9/vendor_oneplus_aston_lunaris.git -b alpha-16.2 vendor/oneplus/aston --depth=1
+git clone https://oauth2:${GL_TOKEN}@gitlab.com/gauravpaul9/vendor_oneplus_sm8550-common_lunaris.git -b sixteen-qpr2 vendor/oneplus/sm8550-common --depth=1
 git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces.git -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
 git clone https://github.com/gaurav-paul9/packages_apps_Updater.git -b 16.2 packages/apps/Updater --depth=1
 git clone https://gaurav-paul9:${GH_TOKEN}@github.com/gaurav-paul9/android_vendor_lineage-priv_keys -b luna vendor/lunaris-priv/keys
 git clone https://gitlab.com/alphadroid-project/vendor_oplus_camera.git -b alpha-16.2 vendor/oplus/camera --depth=1
+git clone https://gitlab.com/crdroidandroid/proprietary_vendor_oneplus_ir.git -b 16.0 vendor/oneplus/ir --depth=1
+git clone https://gitlab.com/alphadroid-project/vendor_oneplus_fusion -b alpha-16.2 vendor/oneplus/fusion --depth=1
 
 send_telegram_message "🎋 *Trees Cloned.*
 📸 *Next:* Applying OPlus camera patches..."
@@ -326,7 +329,7 @@ if [[ -f "$ZIP_FILE" ]]; then
       "romtype": "unofficial",
       "size": $SIZE,
       "url": "$ZIP_URL",
-      "version": "15.0"
+      "version": "16.0"
     }
   ]
 }
