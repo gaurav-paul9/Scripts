@@ -101,6 +101,9 @@ Check the log snippet below."
         else
             send_telegram_message "🚨 *Build Failed!* (No Log found)"
         fi
+        if [ -f "out/error.log" ]; then
+            send_telegram_file "out/error.log" "out/error.log"
+        fi
     fi
 }
 trap handle_exit EXIT
@@ -129,6 +132,10 @@ rm -rf out/target/product/aston/system \
        out/target/product/aston/product .repo/local_manifests
 rm -f "$BUILD_LOG" "$ERROR_LOG" ota.json
 
+# Reset all repos to clean state (idempotent - safe to re-run)
+echo "🔄 Resetting all repos to clean state..."
+repo forall -c "git checkout . && git clean -fd" 2>/dev/null || true
+
 # Repo Init & Sync
 echo "🔄 Initializing Repo..."
 repo init -u https://github.com/Lunaris-AOSP/android -b 16.2 --git-lfs
@@ -150,7 +157,6 @@ echo "🌿 Cloning Device Trees..."
 rm -rf device/oneplus/aston device/oneplus/sm8550-common kernel/oneplus/sm8550 packages/apps/Updater \
        kernel/oneplus/sm8550-modules kernel/oneplus/sm8550-devicetrees hardware/pixelworks/interfaces \
        hardware/oplus hardware/dolby vendor/oneplus/aston vendor/oneplus/sm8550-common vendor/lunaris-priv/keys
-rm -rf vendor/oplus/camera vendor/oneplus/ir vendor/oneplus/fusion
 
 git clone https://github.com/gaurav-paul9/android_device_oneplus_aston.git -b luna-new device/oneplus/aston --depth=1
 git clone https://github.com/gaurav-paul9/android_device_oneplus_sm8550-common.git -b lineage-23.2 device/oneplus/sm8550-common --depth=1
@@ -164,9 +170,14 @@ git clone https://oauth2:${GL_TOKEN}@gitlab.com/gauravpaul9/vendor_oneplus_sm855
 git clone https://github.com/LineageOS/android_hardware_pixelworks_interfaces.git -b lineage-23.2 --depth=1 hardware/pixelworks/interfaces
 git clone https://github.com/gaurav-paul9/packages_apps_Updater.git -b 16.2 packages/apps/Updater --depth=1
 git clone https://gaurav-paul9:${GH_TOKEN}@github.com/gaurav-paul9/android_vendor_lineage-priv_keys -b luna vendor/lunaris-priv/keys
-git clone https://gitlab.com/alphadroid-project/vendor_oplus_camera.git -b alpha-16.2 vendor/oplus/camera --depth=1
-git clone https://gitlab.com/crdroidandroid/proprietary_vendor_oneplus_ir.git -b 16.0 vendor/oneplus/ir --depth=1
-git clone https://gitlab.com/alphadroid-project/vendor_oneplus_fusion -b alpha-16.2 vendor/oneplus/fusion --depth=1
+git clone https://oauth2:${GL_TOKEN}@gitlab.com/alphadroid-project/vendor_oplus_camera.git -b alpha-16.2 vendor/oplus/camera --depth=1
+
+# --- 5.1.0 Vanilla Build Config ---
+echo "Vanilla build: editing lineage_aston.mk..."
+sed -i 's/WITH_GMS := true/WITH_GMS := false/' device/oneplus/aston/lineage_aston.mk
+sed -i '/TARGET_INCLUDE_LIVE_WALLPAPERS/d' device/oneplus/aston/lineage_aston.mk
+sed -i '/TARGET_SUPPORTS_GOOGLE_FILES/d' device/oneplus/aston/lineage_aston.mk
+sed -i '/TARGET_SUPPORTS_GOOGLE_TELEPHONY/d' device/oneplus/aston/lineage_aston.mk
 
 send_telegram_message "🎋 *Trees Cloned.*
 📸 *Next:* Applying OPlus camera patches..."
