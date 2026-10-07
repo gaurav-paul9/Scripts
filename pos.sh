@@ -134,7 +134,7 @@ rm -f "$BUILD_LOG" "$ERROR_LOG" ota.json
 
 # Repo Init & Sync
 echo "🔄 Initializing Repo (PixelOS seventeen)..."
-repo init -u https://github.com/PixelOS-AOSP/manifest.git -b seventeen --git-lfs
+repo init -u https://github.com/PixelOS-AOSP/android_manifest.git -b seventeen --git-lfs
 
 echo "⬇️ Syncing..."
 SYNC_START=$(date +%s)
